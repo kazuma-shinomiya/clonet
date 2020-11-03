@@ -60,7 +60,7 @@ class ClothController extends Controller
     {   
         \DB::beginTransaction();
         try{
-            フォームから送られてきたものを受け取る
+            //フォームから送られてきたものを受け取る
             $cloth=new Cloth;
             $cloth->category=$request->category;
             $cloth->name=$request->name;
