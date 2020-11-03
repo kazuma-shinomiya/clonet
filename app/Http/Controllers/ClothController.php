@@ -58,9 +58,9 @@ class ClothController extends Controller
      */
     public function exeClothAdd(ClothRequest $request)
     {   
-        // \DB::beginTransaction();
-        // try{
-            //フォームから送られてきたものを受け取る
+        \DB::beginTransaction();
+        try{
+            フォームから送られてきたものを受け取る
             $cloth=new Cloth;
             $cloth->category=$request->category;
             $cloth->name=$request->name;
@@ -78,11 +78,11 @@ class ClothController extends Controller
             //データに登録
             $cloth->save();
             \DB::commit();
-        // }catch(\Throwable $e)
-        // {
-        //     \DB::rollback();
-        //     abort(500);
-        // }
+        }catch(\Throwable $e)
+        {
+            \DB::rollback();
+            abort(500);
+        }
 
         return redirect(route('show_cloth'));
     }
