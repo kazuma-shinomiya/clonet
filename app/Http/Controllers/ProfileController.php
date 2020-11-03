@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Profile;
 //Authの使用
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -41,10 +42,11 @@ class ProfileController extends Controller
             $profile->gender=$request->gender;
             $profile->height=$request->height;
             $profile->comment=$request->comment;
-            //画像をpublicに保存
-            $filename=$request->file('image')->store('public');
-            // 保存するファイル名からpublicを除外
-            $profile->image=str_replace('public/','',$filename);
+            //画像の受け取り
+            $uploadImg=$request->file('image');
+            // S3に画像を保存しパスを受取る    
+            $path=Storage::disk('s3')->putFile('plofiles',$uploadImg,'public');
+            $profile->image = Storage::disk('s3')->url($path);
             //ログイン者のuse_idを代入
             $profile->user_id=$request->user()->id;
             //データに登録
@@ -67,11 +69,16 @@ class ProfileController extends Controller
      */
     public function exeProfileEdit(Request $request)
     {
-        $inputs=$request->all();
-        $filename=$request->file('image')->store('public');
-        $inputs['image']=str_replace('public/','',$filename);
         \DB::beginTransaction();
         try{
+            $inputs=$request->all();
+
+            //画像の処理
+            $uploadImg=$request->file('image');
+            // S3に画像を保存しパスを受取る   
+            $path=Storage::disk('s3')->putFile('profiles',$uploadImg,'public');
+            $inputs['image']= Storage::disk('s3')->url($path);
+
             $profile=Profile::find($inputs['id']);
             $profile->fill([
                 'gender'=>$inputs['gender'],

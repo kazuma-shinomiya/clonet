@@ -9,6 +9,7 @@ use App\Cloth;
 use App\Http\Requests\ClothRequest;
 //Authの使用
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ClothController extends Controller
 {
@@ -67,10 +68,11 @@ class ClothController extends Controller
             $cloth->brand=$request->brand;
             $cloth->buy_date=$request->buy_date;
             $cloth->price=$request->price;
-            //画像をpublicに保存
-            $filename=$request->file('image')->store('public');
-            // 保存するファイル名からpublicを除外
-            $cloth->image=str_replace('public/','',$filename);
+            //画像の受け取り
+            $uploadImg=$request->file('image');
+             // S3に画像を保存しパスを受取る    
+            $path=Storage::disk('s3')->putFile('clothes',$uploadImg,'public');
+            $cloth->image = Storage::disk('s3')->url($path);
             //ログイン者のuse_idを代入
             $cloth->user_id=$request->user()->id;
             //データに登録
@@ -93,11 +95,19 @@ class ClothController extends Controller
      */
     public function exeClothEdit(ClothRequest $request)
     {
-        $inputs=$request->all();
-        $filename=$request->file('image')->store('public');
-        $inputs['image']=str_replace('public/','',$filename);
+        
         \DB::beginTransaction();
         try{
+            //入力された全データを取得
+            $inputs=$request->all();
+    
+            //画像の処理
+            $uploadImg=$request->file('image');
+            // S3に画像を保存しパスを受取る   
+            $path=Storage::disk('s3')->putFile('clothes',$uploadImg,'public');
+            $inputs['image']= Storage::disk('s3')->url($path);
+
+            //update処理
             $cloth=Cloth::find($inputs['id']);
             $cloth->fill([
                 'category'=>$inputs['category'],

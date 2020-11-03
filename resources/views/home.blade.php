@@ -22,13 +22,13 @@
                     <div class="card m-3">
                         <div class="card-header">
                             <h3 class="d-inline">{{$outfit->name}}</h3>
-                            <img class="rounded-circle img-thumbnail float-right " src="{{ asset('/storage/'.$profiles->image)}}" alt="プロフィール画像" width="40" height="auto">
+                            <img class="rounded-circle img-thumbnail float-right " src="{{$profiles->image}}" alt="プロフィール画像" width="40" height="auto">
                         </div>  
                         <div class="card-body">
                             <div>
                                 @foreach($outfit->clothes as $outfit_cloth)
                                     <a data-toggle="modal" data-target="#detail_outfits{{$outfit_cloth->id}}" >
-                                        <img class="mb-2" src="{{ asset('/storage/'.$outfit_cloth->image)}}" alt="服のイメージ画像" width="100" height="auto">
+                                        <img class="mb-2" src="{{$outfit_cloth->image}}" alt="服のイメージ画像" width="100" height="auto">
                                     </a>
                                 @endforeach
                             </div>

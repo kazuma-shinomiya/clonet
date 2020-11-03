@@ -33,7 +33,7 @@ $size_options = ['XS','S','M','L','XL','XXL'];
     @foreach($clothes as $cloth)
       <div class="col-lg-4">
         <div class="card mt-4">
-          <img class="card-img-top" src="{{ asset('/storage/'.$cloth->image)}}" alt="服のイメージ画像">
+          <img class="card-img-top" src="{{$cloth->image}}" alt="服のイメージ画像">
           <div class="card-body">
             <a class="card-title" data-toggle="modal" data-target="#detail_clothes{{$cloth->id}}"><h4>{{$cloth->name}}</h4></a>
             <!-- 詳細モーダル画面内容 -->
@@ -44,7 +44,7 @@ $size_options = ['XS','S','M','L','XL','XXL'];
                     <div class="card">
                       <div class="row no-gutters">
                         <div class="col-5">
-                          <img class="card-img" src="{{ asset('/storage/'.$cloth->image)}}" alt="服のイメージ画像">
+                          <img class="card-img"  src="{{$cloth->image}}" alt="服のイメージ画像">
                         </div>
                         <div class="col-7">
                           <div class="card-body text-center">
@@ -131,10 +131,10 @@ $size_options = ['XS','S','M','L','XL','XXL'];
                             </div>
                             <div class="form-group">
                               <label for="price">価格：</label>
-                              <input type="number" class="form-control" id="price" name="price" step="1000" value="{{$cloth->price}}">
+                              <input type="number" class="form-control" id="price" name="price"  value="{{$cloth->price}}">
                             </div>
                             <div class="form-group">
-                              現在の画像：<img src="{{ asset('/storage/'.$cloth->image)}}" width="20%" height="auto"alt="服のイメージ画像"><br>
+                              現在の画像：<img src="{{$cloth->image}}" width="20%" height="auto"alt="服のイメージ画像"><br>
                               <label for="image">画像：</label>
                               <input type="file" class="form-control" id="image" name="image">
                             </div>
@@ -243,7 +243,7 @@ $size_options = ['XS','S','M','L','XL','XXL'];
               </div>
               <div class="form-group">
                 <label for="price">価格：</label>
-                <input type="number" class="form-control" id="price" name="price" step="1000">
+                <input type="number" class="form-control" id="price" name="price">
               </div>
               <div class="form-group">
                 <label for="image">画像：</label>

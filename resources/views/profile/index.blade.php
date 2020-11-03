@@ -5,7 +5,7 @@
   <div class="card m-5" >
     <div class="row no-gutters">
       <div class="col-4">
-        <img class="card-img rounded-circle img-thumbnail m-4" src="{{ asset('/storage/'.$profiles->image)}}" alt="プロフィール画像" width="" height="auto">
+        <img class="card-img rounded-circle img-thumbnail m-4" src="{{$profiles->image}}" alt="プロフィール画像" width="" height="auto">
       </div>
       <div class="col-1">
       </div>

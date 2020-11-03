@@ -68,7 +68,7 @@
                                   <input class="form-check-input position-static" type="checkbox"  name="cloth_id[]" value="{{$cloth->id}}" >
                                 </div>
                               </th>
-                              <td><img src="{{ asset('/storage/'.$cloth->image)}}" alt="服のイメージ画像" width="90" height="auto"></td>
+                              <td><img src="{{$cloth->image}}" alt="服のイメージ画像" width="90" height="auto"></td>
                               <td>{{$cloth->name}}</td>
                               <td>{{$cloth->category}}</td>
                               <td>{{$cloth->size}}</td>
@@ -102,7 +102,7 @@
             <div>
               @foreach($outfit->clothes as $outfit_cloth)
                 <a data-toggle="modal" data-target="#detail_outfits{{$outfit_cloth->id}}" >
-                  <img class="mb-2" src="{{ asset('/storage/'.$outfit_cloth->image)}}" alt="服のイメージ画像" width="100" height="auto">
+                  <img class="mb-2" src="{{$outfit_cloth->image}}" alt="服のイメージ画像" width="100" height="auto">
                 </a>
                 <!-- 詳細モーダル画面内容 -->
                 <div class="modal fade" id="detail_outfits{{$outfit_cloth->id}}" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
@@ -112,7 +112,7 @@
                         <div class="card">
                           <div class="row no-gutters">
                             <div class="col-5">
-                              <img class="card-img" src="{{ asset('/storage/'.$outfit_cloth->image)}}" alt="服のイメージ画像">
+                              <img class="card-img" src="{{$outfit_cloth->image}}" alt="服のイメージ画像">
                             </div>
                             <div class="col-7">
                               <div class="card-body text-center">
@@ -176,7 +176,7 @@
                         <input class="form-check-input position-static" type="checkbox"  name="cloth_id[]" value="{{$cloth->id}}" >
                       </div>
                     </th>
-                    <td><img src="{{ asset('/storage/'.$cloth->image)}}" alt="服のイメージ画像" width="90" height="auto"></td>
+                    <td><img src="{{$cloth->image}}" alt="服のイメージ画像" width="90" height="auto"></td>
                     <td>{{$cloth->name}}</td>
                     <td>{{$cloth->category}}</td>
                     <td>{{$cloth->size}}</td>

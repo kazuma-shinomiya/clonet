@@ -58,7 +58,7 @@
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 @if(!empty($profiles->image))
-                                    <img class="rounded-circle img-thumbnail " src="{{ asset('/storage/'.$profiles->image)}}" alt="プロフィール画像" width="40" height="auto">
+                                    <img class="rounded-circle img-thumbnail " src="{{$profiles->image}}" alt="プロフィール画像" width="40" height="auto">
                                 @else
                                     <i class="fas fa-user fa-2x"></i>
                                 @endif

@@ -48,6 +48,9 @@ return [
             'root' => storage_path('app'),
         ],
 
+        // 追記
+        'cloud' => env('FILESYSTEM_CLOUD', 's3'),
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
