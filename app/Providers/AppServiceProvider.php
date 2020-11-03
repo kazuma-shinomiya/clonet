@@ -26,5 +26,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+        // 本番環境(Heroku)でhttpsを強制する
+        if (\App::environment('production')) 
+        {
+            \URL::forceScheme('https');
+        }
     }
 }
