@@ -1,4 +1,4 @@
-# clonet
+# CLONET
 ## 概要
 衣服の管理アプリです。
 ご自身の衣服をインターネット上で管理でき、お気に入りのコーデイネートを登録しておくこともできます。
@@ -25,43 +25,7 @@
 * 投稿の削除機能
 * プロフィール編集機能
 * いいね機能
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+-----
 
 <p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
 
