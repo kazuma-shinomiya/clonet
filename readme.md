@@ -26,7 +26,7 @@
 * 投稿の削除機能
 * 投稿の絞り込み機能
 * プロフィール編集機能
-* いいね機能
+* いいね機能、いいねの数表示機能
 -----
 
 <p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
