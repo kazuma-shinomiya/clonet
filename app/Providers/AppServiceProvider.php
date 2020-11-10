@@ -23,13 +23,13 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot(UrlGenerator $url)
+    public function boot()
     {
-      # 開発環境（local）はhttpなので、httpsにしない
-      if (config('app.env') !== 'local') {
-        $url->forceScheme('https');
-      }
+        Schema::defaultStringLength(191);
+        // 本番環境(Heroku)でhttpsを強制する
+        if (\App::environment('production')) 
+        {
+            \URL::forceScheme('https');
+        }
     }
-
-
 }
