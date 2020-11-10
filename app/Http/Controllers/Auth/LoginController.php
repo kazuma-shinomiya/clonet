@@ -44,7 +44,7 @@ class LoginController extends Controller
     //ゲストログイン機能
     public function guestLogin()
     {
-        $email='guest@guest.jp';
+        $email='bananakazu@toki.waseda.jp';
         $password='guest1234';
 
         if(Auth::attempt(['email'=>$email,'password'=>$password]))

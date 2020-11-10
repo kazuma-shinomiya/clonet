@@ -84,7 +84,7 @@
                     CLONET
                 </div>
                 <div>
-                    <h2><a href="{{route('guest_login')}}">会員登録なしですぐに始める</a></h2>
+                    <h2><a href="{{route('guest_login')}}">ポートフォリオとして閲覧の方はこちら</a></h2>
                 </div>
                 <div>
                     

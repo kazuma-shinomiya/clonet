@@ -1,0 +1,38 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class ChangeColumnClothesTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::table('clothes', function (Blueprint $table) {
+            $table->string('brand')->nullable()->change();
+            $table->integer('price')->nullable()->change();
+            $table->string('buy_date')->nullable()->change();
+            $table->string('image')->nullable()->change();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::table('clothes', function (Blueprint $table) {
+            $table->string('brand');
+            $table->integer('price');
+            $table->string('buy_date');
+            $table->string('image');
+        });
+    }
+}
