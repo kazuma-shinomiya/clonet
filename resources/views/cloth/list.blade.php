@@ -10,6 +10,7 @@ $size_options = ['XS','S','M','L','XL','XXL'];
 @error('name')
   <div class="alert alert-danger">{{ $message }}</div>
 @enderror
+<h1 class="text-center">Your Closet</h1>
 <!-- 検索フォーム -->
 <div class="container">
   <div class="row">

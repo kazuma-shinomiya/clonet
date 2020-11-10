@@ -2,6 +2,7 @@
 
 @section('content')
 @if(empty($msg))
+    <h1 class="text-center">他の人の投稿</h1>
     <!-- 検索フォーム -->
     <div class="container">
         <div class="row">

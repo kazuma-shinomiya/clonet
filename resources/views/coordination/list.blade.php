@@ -4,6 +4,7 @@
 @error('name')
   <div class="alert alert-danger">{{ $message }}</div>
 @enderror
+<h1 class="text-center">Your Coordination</h1>
 <!-- 検索フォーム -->
 <div class="container">
   <div class="row">
