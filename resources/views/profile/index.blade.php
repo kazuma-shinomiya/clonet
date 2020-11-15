@@ -2,6 +2,15 @@
 
 @section('content')
 @if(!empty($profiles))
+  @error('gender')
+    <div class="alert alert-danger">{{ $message }}</div>
+  @enderror
+  @error('height')
+    <div class="alert alert-danger">{{ $message }}</div>
+  @enderror
+  @error('')
+    <div class="alert alert-danger">{{ $message }}</div>
+  @enderror
   <div class="card m-5" >
     <div class="row no-gutters">
       <div class="col-4">
@@ -15,19 +24,19 @@
         <div class="modal fade" id="edit_profiles{{$profiles->id}}" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
-              <div class="modal-header">
-                <h4>プロフィールを編集する</h4>
+              <div class="modal-header center-block">
+                <h4 class="text-right">プロフィールを編集する</h4>
               </div>
               <div class="modal-body">
                 <form method="post" action="{{route('edit_profile')}}" enctype="multipart/form-data">
                 @csrf
                   <input type="hidden" name="id" value="{{$profiles->id}}">
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="gender" id="man" value="MAN">
+                    <input class="form-check-input" type="radio" name="gender" id="edit_man" value="MAN" >
                     <label class="form-check-label" for="man">MAN</label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="gender" id="woman"value="WOMAN">
+                    <input class="form-check-input" type="radio" name="gender" id="edit_woman"value="WOMAN">
                     <label class="form-check-label" for="woman">WOMAN</label>
                   </div>
                   <div class="form-group">
@@ -35,11 +44,11 @@
                     <input type="number" name="height" id="height" maxlength="3" value="{{$profiles->height}}">
                   </div>
                   <div class="form-group">
-                    <label for="comment">自己紹介：</label>
+                    <label for="comment">自己紹介</label>
                     <textarea name="comment" id="comment" cols="30" rows="10" class="form-control">{{$profiles->comment}}</textarea>
                   </div>
                   <div class="form-group">
-                    <label for="image">画像：</label>
+                    <label for="image">プロフィール画像</label>
                     <input type="file" class="form-control" id="image" name="image">
                   </div>
                   <button type="submit" class="btn btn-primary">変更する</button>
@@ -95,7 +104,7 @@
                   <input type="number" name="height" id="height" maxlength="3">
                 </div>
                 <div class="form-group">
-                  <label for="comment">自己紹介：</label>
+                  <label for="comment">自己紹介</label>
                   <textarea name="comment" id="comment" cols="30" rows="10" class="form-control"></textarea>
                 </div>
                 <div class="form-group">
@@ -114,6 +123,6 @@
       <!-- ここまで -->
     </div>
   </div>
-
 @endif
+
 @endsection

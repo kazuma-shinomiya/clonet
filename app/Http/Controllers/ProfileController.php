@@ -9,6 +9,8 @@ use App\Profile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
+use App\Http\Requests\ProfileRequest;
+
 class ProfileController extends Controller
 {
     function __construct(){
@@ -24,8 +26,8 @@ class ProfileController extends Controller
         //Profileモデルのデータを取得
         $profiles=$request->user()->profiles;
 
-
         return view('profile.index',compact('profiles'));
+        
     }
 
     /**
@@ -33,7 +35,7 @@ class ProfileController extends Controller
      * 
      * @return view
      */
-    public function exeProfileAdd(Request $request)
+    public function exeProfileAdd(ProfileRequest $request)
     {
         \DB::beginTransaction();
         try{
@@ -67,10 +69,10 @@ class ProfileController extends Controller
      * 
      * @return view
      */
-    public function exeProfileEdit(Request $request)
+    public function exeProfileEdit(ProfileRequest $request)
     {
-        \DB::beginTransaction();
-        try{
+        // \DB::beginTransaction();
+        // try{
             $inputs=$request->all();
 
             //画像の処理
@@ -88,11 +90,11 @@ class ProfileController extends Controller
             ]);
             $profile->save();
             \DB::commit();
-        }catch(\Throwable $e)
-        {
-            \DB::rollback();
-            abort(500);
-        }
+        // }catch(\Throwable $e)
+        // {
+        //     \DB::rollback();
+        //     abort(500);
+        // }
         return redirect(route('show_profile'));
     }
 }

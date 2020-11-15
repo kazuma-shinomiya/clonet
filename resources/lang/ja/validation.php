@@ -145,6 +145,11 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'name'=>'名前',
+        'gender'=>'性別',
+        'height'=>'身長'
+
+    ],
 
 ];

@@ -167,7 +167,7 @@ $size_options = ['XS','S','M','L','XL','XXL'];
                           <div class="card">
                             <div class="row no-gutters">
                               <div class="col-5">
-                                <img class="card-img" src="{{ asset('/storage/'.$cloth->image)}}" alt="服のイメージ画像">
+                                <img class="card-img" src="{{$cloth->image}}" alt="服のイメージ画像">
                               </div>
                               <div class="col-7">
                                 <div class="card-body text-center">
