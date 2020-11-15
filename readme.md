@@ -18,7 +18,7 @@
 * AWS S3
 * Heroku
 ## 機能一覧
-* ユーザー登録、ログイン機能
+* ユーザー登録、ログイン機能、メール認証
 * 投稿機能
   * 画像投稿
   * タグ付け機能
@@ -26,7 +26,7 @@
 * 投稿の削除機能
 * 投稿の絞り込み機能
 * プロフィール編集機能
-* いいね機能
+* いいね機能、いいねの数表示機能
 -----
 
 <p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
