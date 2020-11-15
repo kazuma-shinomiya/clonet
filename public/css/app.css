@@ -7,7 +7,12 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
 
- 
+ .my-pink{
+   color:pink;
+ }
+ .my-gray{
+   color:gray;
+ }
 
 :root {
   --blue: #3490dc;
