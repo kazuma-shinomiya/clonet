@@ -23,7 +23,37 @@
                     <div class="card m-3">
                         <div class="card-header">
                             <h3 class="d-inline">{{$outfit->name}}</h3>
-                            <img class="rounded-circle img-thumbnail float-right " src="{{$profiles->image}}" alt="プロフィール画像" width="40" height="auto">
+                            <a data-toggle="modal" data-target="#detail_profiles{{$profiles->id}}">
+                                <img class="rounded-circle img-thumbnail float-right " src="{{$profiles->image}}" alt="プロフィール画像" width="40" height="auto">
+                            </a>
+                            <!-- 詳細モーダル画面内容 -->
+                            <div class="modal fade" id="detail_profiles{{$profiles->id}}" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <div class="card">
+                                                <div class="row no-gutters">
+                                                    <div class="col-5">
+                                                        <img class="card-img rounded-circle img-thumbnail"  src="{{$profiles->image}}" alt="プロフィール画像">
+                                                    </div>
+                                                    <div class="col-7">
+                                                        <div class="card-body text-center">
+                                                            <h4 class="card-title">{{$users->name}}</h4>
+                                                            <p class="card-text lead">性別：{{$profiles->gender}}</p>
+                                                            <p class="card-text lead">身長：{{$profiles->height}}</p>
+                                                            <p class="card-text lead">{{$profiles->comment}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <!-- <button type="submit" class="btn btn-outline-primary mr-auto"><i class="fas fa-user-friends fa-1x"></i></i>フォロー</button>  -->
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">✕</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>  
                         <div class="card-body">
                             <div>

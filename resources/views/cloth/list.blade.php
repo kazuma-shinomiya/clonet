@@ -34,7 +34,13 @@ $size_options = ['XS','S','M','L','XL','XXL'];
     @foreach($clothes as $cloth)
       <div class="col-lg-4">
         <div class="card mt-4">
-          <img class="card-img-top" src="{{$cloth->image}}" alt="服のイメージ画像">
+          @if(!empty($cloth->image))
+            <img class="card-img-top" src="{{$cloth->image}}" alt="服のイメージ画像" style="width:auto;height:288px;">
+          @else
+            <div style="width:auto;height:288px;" class="pl-5 pt-5">
+              <i class="fas fa-tshirt fa-10x ml-4 mt-1"></i>
+            </div>
+          @endif
           <div class="card-body">
             <a class="card-title" data-toggle="modal" data-target="#detail_clothes{{$cloth->id}}"><h4>{{$cloth->name}}</h4></a>
             <!-- 詳細モーダル画面内容 -->
@@ -45,7 +51,13 @@ $size_options = ['XS','S','M','L','XL','XXL'];
                     <div class="card">
                       <div class="row no-gutters">
                         <div class="col-5">
-                          <img class="card-img"  src="{{$cloth->image}}" alt="服のイメージ画像">
+                          @if(!empty($cloth->image))
+                            <img class="card-img"  src="{{$cloth->image}}" alt="服のイメージ画像">
+                          @else
+                          <div style="width:auto;height:288px;" class="pl-5 pt-5">
+                            <i class="fas fa-tshirt fa-10x ml-4 mt-1"></i>
+                          </div>
+                          @endif
                         </div>
                         <div class="col-7">
                           <div class="card-body text-center">
@@ -167,7 +179,13 @@ $size_options = ['XS','S','M','L','XL','XXL'];
                           <div class="card">
                             <div class="row no-gutters">
                               <div class="col-5">
-                                <img class="card-img" src="{{$cloth->image}}" alt="服のイメージ画像">
+                                @if(!empty($cloth->image))
+                                  <img class="card-img"  src="{{$cloth->image}}" alt="服のイメージ画像">
+                                @else
+                                  <div style="width:auto;height:288px;" class="pl-5 pt-5">
+                                    <i class="fas fa-tshirt fa-10x ml-4 mt-1"></i>
+                                  </div>
+                                @endif
                               </div>
                               <div class="col-7">
                                 <div class="card-body text-center">

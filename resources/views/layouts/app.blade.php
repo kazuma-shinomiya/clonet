@@ -10,7 +10,7 @@
     <title>{{ config('app.name', 'CLONET') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ mix('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -73,7 +73,7 @@
                                     <a href="{{route('show_profile')}}"class="dropdown-item" href="">Profile</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                       document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -89,7 +89,7 @@
         </nav>
 
         <main class="py-4">
-            <div class="tab-content">
+            <div id="app">
                 @yield('content')
             </div>
         </main>

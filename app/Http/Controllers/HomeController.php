@@ -8,6 +8,7 @@ use App\Profile;
 use App\Cloth;
 use App\Tag;
 use App\Like;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -56,11 +57,16 @@ class HomeController extends Controller
             $likes=null;
         }
 
-        //プロフィールの取得
+    
         foreach($outfits as $outfit)
         {
+            //プロフィールの取得
             $profiles=Profile::where('user_id','=',$outfit['user_id'])->first();
+            //ユーザーの名前を取得
+            $users=User::where('id','=',$outfit['user_id'])->first();
         }
+
+        
 
 
         if(empty($profiles))
@@ -69,7 +75,7 @@ class HomeController extends Controller
             return view('home',compact('msg'));
         }else
         {
-            return view('home',compact('outfits','profiles','likes'));
+            return view('home',compact('outfits','profiles','users','likes'));
         }
     }
 
@@ -113,12 +119,14 @@ class HomeController extends Controller
         foreach($outfits as $outfit)
         {
             $profiles=Profile::where('user_id','=',$outfit['user_id'])->first();
+            //ユーザーの名前を取得
+            $users=User::where('id','=',$outfit['user_id'])->first();
         }
 
         // Clothモデルのデータを取得
         $clothes = $request->user()->clothes;
         
-       return view('home',compact('clothes','outfits','profiles','likes'));
+        return view('home',compact('clothes','outfits','profiles','users','likes'));
     }
 
     /**

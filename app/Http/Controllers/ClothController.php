@@ -43,8 +43,7 @@ class ClothController extends Controller
         $clothes = $request->user()->clothes;
         //フォームから受け取る
         $keyword=$request->category_search;
-        if(!empty($keyword))
-        {
+        if(!empty($keyword)){
             $clothes=$clothes->where('category',$keyword);
         }
 
@@ -68,18 +67,20 @@ class ClothController extends Controller
             $cloth->brand=$request->brand;
             $cloth->buy_date=$request->buy_date;
             $cloth->price=$request->price;
-            //画像の受け取り
-            $uploadImg=$request->file('image');
-             // S3に画像を保存しパスを受取る    
-            $path=Storage::disk('s3')->putFile('clothes',$uploadImg,'public');
-            $cloth->image = Storage::disk('s3')->url($path);
+            
+            if(!empty($request->image)){
+                //画像の受け取り
+                $uploadImg=$request->file('image');
+                 // S3に画像を保存しパスを受取る    
+                $path=Storage::disk('s3')->putFile('clothes',$uploadImg,'public');
+                $cloth->image = Storage::disk('s3')->url($path);
+            }
             //ログイン者のuse_idを代入
             $cloth->user_id=$request->user()->id;
             //データに登録
             $cloth->save();
             \DB::commit();
-        }catch(\Throwable $e)
-        {
+        }catch(\Throwable $e){
             \DB::rollback();
             abort(500);
         }
@@ -96,35 +97,44 @@ class ClothController extends Controller
     public function exeClothEdit(ClothRequest $request)
     {
         
-        \DB::beginTransaction();
-        try{
-            //入力された全データを取得
-            $inputs=$request->all();
-    
-            //画像の処理
-            $uploadImg=$request->file('image');
-            // S3に画像を保存しパスを受取る   
-            $path=Storage::disk('s3')->putFile('clothes',$uploadImg,'public');
-            $inputs['image']= Storage::disk('s3')->url($path);
-
-            //update処理
-            $cloth=Cloth::find($inputs['id']);
-            $cloth->fill([
-                'category'=>$inputs['category'],
-                'name'=>$inputs['name'],
-                'size'=>$inputs['size'],
-                'brand'=>$inputs['brand'],
-                'buy_date'=>$inputs['buy_date'],
-                'price'=>$inputs['price'],
-                'image'=>$inputs['image'],
-            ]);
-            $cloth->save();
+        // \DB::beginTransaction();
+        // try{
+            if(!empty($request->image)){
+                //画像の処理
+                $uploadImg=$request->file('image');
+                // S3に画像を保存しパスを受取る   
+                $path=Storage::disk('s3')->putFile('clothes',$uploadImg,'public');
+                $request->image= Storage::disk('s3')->url($path);
+                //update処理
+                $cloth=Cloth::find($request->id);
+                $cloth->fill([
+                    'category'=>$request->category,
+                    'name'=>$request->name,
+                    'size'=>$request->size,
+                    'brand'=>$request->brand,
+                    'buy_date'=>$request->buy_date,
+                    'price'=>$request->price,
+                    'image'=>$request->image,
+                ]);
+                $cloth->save();
+            }else{
+                //update処理
+                $cloth=Cloth::find($request->id);
+                $cloth->fill([
+                    'category'=>$request->category,
+                    'name'=>$request->name,
+                    'size'=>$request->size,
+                    'brand'=>$request->brand,
+                    'buy_date'=>$request->buy_date,
+                    'price'=>$request->price,
+                ]);
+                $cloth->save();
+            }
             \DB::commit();
-        }catch(\Throwable $e)
-        {
-            \DB::rollback();
-            abort(500);
-        }
+        // }catch(\Throwable $e){
+        //     \DB::rollback();
+        //     abort(500);
+        // }
         return redirect(route('show_cloth'));
     }
 
@@ -138,8 +148,7 @@ class ClothController extends Controller
     {
         try{
             Cloth::destroy($id);
-        }catch(\Throwable $e)
-        {
+        }catch(\Throwable $e){
             abort(500);
         }
         return redirect(route('show_cloth'));
