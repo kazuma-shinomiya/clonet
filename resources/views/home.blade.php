@@ -72,9 +72,9 @@
                             @auth
                                 <div class="d-inline float-right">
                                     @if($likes[$loop->iteration]==1)
-                                        <a href="{{route('nolike_home',$outfit->id)}}"><i class="fas fa-heart fa-2x my-pink"></i></a>
+                                        <a href="{{route('nolike_home',$outfit->id)}}"><i class="fas fa-heart fa-2x " style="color:pink;"></i></a>
                                     @else
-                                        <a href="{{route('like_home',$outfit->id)}}"><i class="fas fa-heart fa-2x my-gray"></i></a>
+                                        <a href="{{route('like_home',$outfit->id)}}"><i class="fas fa-heart fa-2x" style="color:gray;"></i></a>
                                     @endif
                                 </div>
                             @endauth
