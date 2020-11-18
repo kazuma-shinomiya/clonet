@@ -143,7 +143,7 @@
                 <span class="badge badge-pill badge-info">{{$outfit_tag->name}}</span>
               @endforeach
               <!-- いいね件数の表示 -->
-              <i class="fas fa-heart fa-2x my-pink float-right">{{$outfit->like}}</i>
+              <i class="fas fa-heart fa-2x float-right" style="color:pink;">{{$outfit->like}}</i>
             </div>
           </div>
         </div>
