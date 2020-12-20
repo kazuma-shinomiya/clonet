@@ -34,6 +34,11 @@ Route::middleware('verified')->group(function() {
     
     //いいねを消す
     Route::get('/home/nolike/{id}','HomeController@exeOther_outfitNolike')->name('nolike_home');
+
+    //フォローする
+    Route::put('/home/follow/{name}','HomeController@follow')->name('follow_home');
+    //フォローを外す
+    Route::delete('/home/follow/{name}','HomeController@unfollow')->name('unfollow_home');
     
     //服一覧を表示
     Route::get('/cloth/list','ClothController@getClothShow')->name('show_cloth');

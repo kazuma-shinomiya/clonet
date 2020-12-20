@@ -28,10 +28,8 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function getOther_outfitShow()
-    {
-        if (Auth::check()) 
-        {
+    public function getOther_outfitShow(){
+        if (Auth::check()){
             //コーディネートの取得
             $id = Auth::id();
             $outfits=Outfit::where('user_id','!=',$id)->get();
@@ -39,27 +37,22 @@ class HomeController extends Controller
             //いいねの取得
             $likes=array();
             $likes[0]='dummy';
-            foreach($outfits as $outfit)
-            {
+            foreach($outfits as $outfit){
                 $like=Like::where('user_id',$id)->where('outfit_id',$outfit['id'])->first();
-                if(!empty($like))
-                {
+                if(!empty($like)){
                     $like=1;
-                }else
-                {
+                }else{
                     $like=0;
                 }
                 array_push($likes,$like);
             }
-        }else
-        {
+        }else{
             $outfits=Outfit::inRandomOrder()->get();
             $likes=null;
         }
 
     
-        foreach($outfits as $outfit)
-        {
+        foreach($outfits as $outfit){
             //プロフィールの取得
             $profiles=Profile::where('user_id','=',$outfit['user_id'])->first();
             //ユーザーの名前を取得
@@ -69,12 +62,10 @@ class HomeController extends Controller
         
 
 
-        if(empty($profiles))
-        {
+        if(empty($profiles)){
             $msg="他の人の投稿はまだありません";
             return view('home',compact('msg'));
-        }else
-        {
+        }else{
             return view('home',compact('outfits','profiles','users','likes'));
         }
     }
@@ -85,8 +76,7 @@ class HomeController extends Controller
      * @return view
      */
 
-    public function getOther_outfitSearch(Request $request)
-    {
+    public function getOther_outfitSearch(Request $request){
         //ログイン者のユーザーidを取得
         $id=Auth::id();
         //ログイン者以外のコーディネートの取得
@@ -94,39 +84,41 @@ class HomeController extends Controller
 
         //フォームから受け取る
         $keyword=$request->tag_search;
-        if(!empty($keyword))
-        {
+        if(!empty($keyword)){
             $outfits=Outfit::where('user_id','!=',$id)->where('tag_comment','like',"%$keyword%")->get();
         }
-
-        //いいねの取得
-        $likes=array();
-        $likes[0]='dummy';
-        foreach($outfits as $outfit)
-        {
-            $like=Like::where('user_id',$id)->where('outfit_id',$outfit['id'])->first();
-            if(!empty($like))
-            {
-                $like=1;
-            }else
-            {
-                $like=0;
-            }
-            array_push($likes,$like);
-        }
-
-        //プロフィール情報をわたす
-        foreach($outfits as $outfit)
-        {
-            $profiles=Profile::where('user_id','=',$outfit['user_id'])->first();
-            //ユーザーの名前を取得
-            $users=User::where('id','=',$outfit['user_id'])->first();
-        }
-
-        // Clothモデルのデータを取得
-        $clothes = $request->user()->clothes;
         
-        return view('home',compact('clothes','outfits','profiles','users','likes'));
+        if(!empty($outfits)){
+            $msg="他の人の投稿はまだありません";
+            return view('home',compact('msg'));
+        }else{
+            //いいね状況の取得
+            $likes=array();
+            $likes[0]='dummy';
+            foreach($outfits as $outfit){
+                $like=Like::where('user_id',$id)->where('outfit_id',$outfit['id'])->first();
+                if(!empty($like)){
+                    $like=1;
+                }else{
+                    $like=0;
+                }
+                array_push($likes,$like);
+            }
+            //プロフィール情報をわたす
+            foreach($outfits as $outfit){
+                $profiles=Profile::where('user_id','=',$outfit['user_id'])->first();
+                //ユーザーの名前を取得
+                $users=User::where('id','=',$outfit['user_id'])->first();
+            }
+    
+    
+            // Clothモデルのデータを取得
+            $clothes = $request->user()->clothes;
+            
+            return view('home',compact('clothes','outfits','profiles','users','likes'));
+
+        }
+        
     }
 
     /**
@@ -134,8 +126,7 @@ class HomeController extends Controller
      * @param $id outfitのid
      * @return view
      */
-    public function exeOther_outfitLike($id)
-    {
+    public function exeOther_outfitLike($id){
         $like=new Like;
         $like->user_id=Auth::id();
         $like->outfit_id=$id;
@@ -148,8 +139,7 @@ class HomeController extends Controller
      * @param $id outfitのid
      * @return view
      */
-    public function exeOther_outfitNolike($id)
-    {
+    public function exeOther_outfitNolike($id){
         $user_id=Auth::id();
         $like=Like::where('user_id',$user_id)->where('outfit_id',$id)->first();
         $like->delete();
@@ -157,5 +147,38 @@ class HomeController extends Controller
         return redirect(route('home'));
     }
 
+    /**
+     * フォローをする
+     * 
+     */
+    public function follow(Request $request,string $name){
+        $user= User::where('name',$name)->first();
+
+        //自分はフォローできないようにする
+        if($user->id === $request->user()->id){
+            return abort('404','Cannot follow yourself.');
+        }
+        
+        //複数回フォローしないようにdetachする
+        $request->user()->followings()->detach($user);
+        $request->user()->followings()->attach($user);
+
+        return ['name'=>$name];
+    }
+    /**
+     * フォローを外す
+     */
+    public function unfollow(Request $request,string $name){
+        $user=User::where('name',$name)->first();
+        
+        //自分はフォローできないようにする
+        if($user->id === $request->user()->id){
+            return abort('404','Cannot follow yourself.');
+        }
+
+        $request->user()->followings()->detach($user);
+
+        return['name'=>$name];
+    }
 
 }

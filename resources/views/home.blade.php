@@ -48,7 +48,12 @@
                                             </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <!-- <button type="submit" class="btn btn-outline-primary mr-auto"><i class="fas fa-user-friends fa-1x"></i></i>フォロー</button>  -->
+                                            <follow-button class="ml-auto" 
+                                            :initial-is-followed-by='@json($users->isFollowedBy(Auth::user()))'
+                                            :authorized='@json(Auth::check())'
+                                            endpoint="{{route('follow_home',['name'=>$users->name])}}">
+                                            </follow-button>
+                                        
                                             <button type="button" class="btn btn-default" data-dismiss="modal">✕</button>
                                         </div>
                                     </div>
@@ -85,6 +90,9 @@
         </div>
     </div>
 @else
-    {{$msg}}
+    <div class="text-center my-4">
+        <i class="fas fa-exclamation-triangle fa-5x"></i>
+    </div>
+    <h4 class="text-secondary text-center">{{$msg}}</h4>
 @endif
 @endsection

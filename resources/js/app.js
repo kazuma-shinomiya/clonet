@@ -6,6 +6,7 @@
 import './bootstrap'
 import Vue from 'vue'
 import Like from './components/Like'
+import FollowButton from './components/FollowButton'
 
 
 window.Vue = require('vue');
@@ -33,5 +34,6 @@ const app = new Vue({
     el: '#app',
     components: {
         Like,
+        FollowButton,
     }
 });
